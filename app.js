@@ -4,8 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose=require('mongoose');
+
+//variables de entorno
+require('dotenv').config({path: 'variables.env'});
+
 //conexion a moongose
-mongoose.connect('mongodb+srv://usuario1:vt1CA6XfFKiTeH9s@cluster0-3kjfx.mongodb.net/informacion?retryWrites=true', {
+mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => { console.log('Conectado a Mongo DB Atlas')})
@@ -48,6 +52,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+//obtener localhost y puerto de variables
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3000;
+
+app.listen(port, host, ()=>{
+  console.log('El servidor esta funcionando');
 });
 
 module.exports = app;
