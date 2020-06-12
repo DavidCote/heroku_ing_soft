@@ -55,6 +55,6 @@ app.use(function(err, req, res, next) {
 });
 
 //obtener localhost y puerto de variables
-const host = process.env.HOST || '0.0.0.0';
+//const host = process.env.HOST || '0.0.0.0';
 
 module.exports = app;
